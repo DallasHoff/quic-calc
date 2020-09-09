@@ -1,0 +1,22 @@
+{
+  "name": "quic-calc",
+  "version": "0.0.1",
+  "description": "A Quick Calculator App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DallasHoff/quic-calc.git"
+  },
+  "author": "Dallas Hoffman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DallasHoff/quic-calc/issues"
+  },
+  "homepage": "https://github.com/DallasHoff/quic-calc#readme",
+  "dependencies": {
+    "vue": "^2.6.12"
+  }
+}
