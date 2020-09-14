@@ -20,9 +20,6 @@ export default {
 html {
 	font-size: 16px;
 	font-family: 'Varela Round', Helvetica, Arial, sans-serif;
-	-webkit-text-size-adjust: none;
-	-moz-text-size-adjust: none;
-	-ms-text-size-adjust: none;
 	text-size-adjust: none;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -40,14 +37,13 @@ body {
 	margin: 0;
 	background: none;
 }
-
-/* TODO: Stopgap to center calculator before layout work is done */
 #app {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	height: 100vh;
 	.calculator {
-		flex: 1 0 auto;
+		flex: 1 0 0;
 	}
 }
 </style>

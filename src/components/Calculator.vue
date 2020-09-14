@@ -270,34 +270,41 @@ export default {
 
 <style lang="scss">
 .calculator {
-    font-size: 18px;
-	max-width: 360px;
-	margin: auto;
-	color: white;
+	--gap: 7px;
+	display: grid;
+	grid-template-rows: auto minmax(0, 1fr);
+	grid-template-columns: 1fr;
+    font-size: calc(var(--gap) * 2);
+	max-width: 420px;
+	max-height: 100vh;
+	backdrop-filter: blur(3px);
 	&__display {
-		font-size: 1.4em;
+		font-size: 1.6em;
         display: block;
 		text-align: right;
-		background-color: #111111f0;
-		padding: .6rem;
+		color: white;
+		background-color: #111111e0;
+		padding: var(--gap);
 	}
 	&__problem {
-		font-size: 0.8em;
+		font-size: 0.6em;
 		line-height: 1em;
-		padding: .3rem;
-		min-height: calc(1em + .6rem);
+		padding: var(--gap);
+		min-height: calc(1em + (var(--gap) * 2)); /* Line height and padding */
+		color: darken(white, 20%);
 	}
 	&__answer {
-		padding: .3rem;
-		&--large {font-size: 1.6em;}
-		&--medium {font-size: 1.2em;}
-		&--small {font-size: 1em;}
-		&--xsmall {font-size: 0.8em;}
+		padding: var(--gap);
+		line-height: calc(var(--gap) * 5);
+		&--large {font-size: 1.5em;}
+		&--medium {font-size: 1.1em;}
+		&--small {font-size: 0.9em;}
+		&--xsmall {font-size: 0.7em;}
 	}
 	&__buttons {
 		display: grid;
-		grid-template-rows: 1fr 1fr 1fr 1fr;
-		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-rows: repeat(6, 16.6666%);
+		grid-template-columns: repeat(4, 1fr);
     }
     &__button {
         display: flex;
@@ -307,20 +314,20 @@ export default {
         font-size: 1.2em;
         color: #111111;
         border: 1px solid #7f7f7f;
-        padding: .3rem;
         margin: 0;
-        background: #dfdfdff0;
-        &:hover {background: darken(#dfdfdff0, 10%);}
-        &:active {background: darken(#dfdfdff0, 20%);}
+		padding: 0;
+        background: #dfdfdfe0;
+        &:hover {background: darken(#dfdfdfe0, 10%);}
+        &:active {background: darken(#dfdfdfe0, 20%);}
         &--op {
-            background: #c6e9aff0;
-            &:hover {background: darken(#c6e9aff0, 10%);}
-            &:active {background: darken(#c6e9aff0, 20%);}
+            background: #c6e9afe0;
+            &:hover {background: darken(#c6e9afe0, 10%);}
+            &:active {background: darken(#c6e9afe0, 20%);}
         }
         &--submit {
-            background: #71c837f0;
-            &:hover {background: darken(#71c837f0, 10%);}
-            &:active {background: darken(#71c837f0, 20%);}
+            background: #71c837e0;
+            &:hover {background: darken(#71c837e0, 10%);}
+            &:active {background: darken(#71c837e0, 20%);}
         }
         &::before, &::after {
             /* Button aspect ratio */
@@ -337,5 +344,17 @@ export default {
             font-size: .6em;
         }
     }
+}
+
+@media (min-width: 360px) {
+	.calculator {
+		--gap: 9px;
+	}
+}
+
+@media (min-width: 420px) {
+	.calculator {
+		--gap: 10px;
+	}
 }
 </style>
