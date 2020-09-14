@@ -27,7 +27,7 @@ html {
 	padding: 0;
 	margin: 0;
 	background-color: #f3f3f3;
-	background-image: url('./img/background/1920x1280.jpg'); /* TODO: make responsive */
+	background-image: url('./img/background/360x640.jpg');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -45,5 +45,31 @@ body {
 	.calculator {
 		flex: 1 0 0;
 	}
+}
+
+/* Responsive background image */
+@media (min-width: 360px) {
+	html {background-image: url('./img/background/540x960.jpg');}
+}
+@media (min-width: 540px) and (orientation: portrait) {
+	html {background-image: url('./img/background/720x1280.jpg');}
+}
+@media (min-width: 540px) and (orientation: landscape) {
+	html {background-image: url('./img/background/720x480.jpg');}
+}
+@media (min-width: 720px) {
+	html {background-image: url('./img/background/1024x1821.jpg');}
+}
+@media (min-width: 1024px) {
+	html {background-image: url('./img/background/1280x853.jpg');}
+}
+@media (min-width: 1280px) {
+	html {background-image: url('./img/background/1920x1280.jpg');}
+}
+@media (min-width: 1920px) {
+	html {background-image: url('./img/background/2560x1707.jpg');}
+}
+@media (min-width: 2560px) {
+	html {background-image: url('./img/background/3840x2560.jpg');}
 }
 </style>
