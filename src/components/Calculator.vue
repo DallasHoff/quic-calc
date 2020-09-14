@@ -218,17 +218,18 @@ export default {
 			return x1 + x2;
 		},
 		solve() {
-            // Solve entered equation
+			// Solve entered equation
 			this.powSolve();
-			this.onOp = false;
-			this.onDec = false;
-			if (this.entry === '') {
+			if (this.onOp && this.entry === '') {
 				this.entry = 0;
 			}
+			this.onOp = false;
+			this.onDec = false;
 			this.problem.push(this.entry);
 			this.entry = '';
 			try {
-				var answer = eval(this.problem.join(' '));
+				var equation = this.problem.join(' ');
+				var answer = equation ? eval(equation) : 0;
 				this.answer = this.addCommas(answer);
 				this.problem = [answer];
 			} catch(err) {
