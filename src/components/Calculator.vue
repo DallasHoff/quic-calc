@@ -5,37 +5,42 @@
             <div :class="['calculator__answer', 'calculator__answer--' + answerSize]">{{answer}}</div>
         </output>
         <form class="calculator__buttons" id="calculator__buttons" @submit.prevent="solve">
-            <button type="button" class="calculator__button calculator__button--op" @click="per">%</button>
-            <button type="button" class="calculator__button calculator__button--op" @click="ce">CE</button>
-            <button type="button" class="calculator__button calculator__button--op" @click="clear">C</button>
-            <button type="button" class="calculator__button calculator__button--op" @click="back">&#8612;</button>
-            <button type="button" class="calculator__button calculator__button--op" @click="sqrt">&radic;</button>
-            <button type="button" class="calculator__button calculator__button--op" @click="sqr">x<sup>2</sup></button>
-            <button type="button" class="calculator__button calculator__button--op" @click="pow">x<sup>y</sup></button>
-            <button type="button" class="calculator__button calculator__button--op" @click="op('/')">&divide;</button>
-            <button type="button" class="calculator__button" @click="ent('7')">7</button>
-            <button type="button" class="calculator__button" @click="ent('8')">8</button>
-            <button type="button" class="calculator__button" @click="ent('9')">9</button>
-            <button type="button" class="calculator__button calculator__button--op" @click="op('*')">&times;</button>
-            <button type="button" class="calculator__button" @click="ent('4')">4</button>
-            <button type="button" class="calculator__button" @click="ent('5')">5</button>
-            <button type="button" class="calculator__button" @click="ent('6')">6</button>
-            <button type="button" class="calculator__button calculator__button--op" @click="op('-')">&minus;</button>
-            <button type="button" class="calculator__button" @click="ent('1')">1</button>
-            <button type="button" class="calculator__button" @click="ent('2')">2</button>
-            <button type="button" class="calculator__button" @click="ent('3')">3</button>
-            <button type="button" class="calculator__button calculator__button--op" @click="op('+')">+</button>
-            <button type="button" class="calculator__button" @click="sign">&#8723;</button>
-            <button type="button" class="calculator__button" @click="ent('0')">0</button>
-            <button type="button" class="calculator__button" @click="dec">.</button>
-            <button type="submit" class="calculator__button calculator__button--submit">=</button>
+            <calc-btn version="op" area="per" @click="per">%</calc-btn>
+            <calc-btn version="op" area="ce" @click="ce">CE</calc-btn>
+            <calc-btn version="op" area="c" @click="clear">C</calc-btn>
+            <calc-btn version="op" area="back" @click="back">&#8612;</calc-btn>
+            <calc-btn version="op" area="sqrt" @click="sqrt">&radic;</calc-btn>
+            <calc-btn version="op" area="sqr" @click="sqr">x<sup>2</sup></calc-btn>
+            <calc-btn version="op" area="pow" @click="pow">x<sup>y</sup></calc-btn>
+            <calc-btn version="op" area="div" @click="op('/')">&divide;</calc-btn>
+            <calc-btn version="num" area="n7" @click="num('7')">7</calc-btn>
+            <calc-btn version="num" area="n8" @click="num('8')">8</calc-btn>
+            <calc-btn version="num" area="n9" @click="num('9')">9</calc-btn>
+            <calc-btn version="op" area="mul" @click="op('*')">&times;</calc-btn>
+            <calc-btn version="num" area="n4" @click="num('4')">4</calc-btn>
+            <calc-btn version="num" area="n5" @click="num('5')">5</calc-btn>
+            <calc-btn version="num" area="n6" @click="num('6')">6</calc-btn>
+            <calc-btn version="op" area="sub" @click="op('-')">&minus;</calc-btn>
+            <calc-btn version="num" area="n1" @click="num('1')">1</calc-btn>
+            <calc-btn version="num" area="n2" @click="num('2')">2</calc-btn>
+            <calc-btn version="num" area="n3" @click="num('3')">3</calc-btn>
+            <calc-btn version="op" area="add" @click="op('+')">+</calc-btn>
+            <calc-btn version="num" area="sign" @click="sign">&#8723;</calc-btn>
+            <calc-btn version="num" area="n0" @click="num('0')">0</calc-btn>
+            <calc-btn version="num" area="dec" @click="dec">.</calc-btn>
+            <calc-btn version="submit" area="solve">=</calc-btn>
         </form>
     </div>
 </template>
 
 <script>
+import CalcBtn from '@/components/CalcBtn.vue';
+
 export default {
-    name: 'Calculator',
+	name: 'Calculator',
+	components: {
+		CalcBtn
+	},
 	data() {
         return {
             entry: '',
@@ -96,7 +101,7 @@ export default {
 			this.entry = '';
 			this.answer = 0;
 		},
-		ent(char) {
+		num(char) {
             // Number button
 			this.onOp = false;
 			if (this.problem.length === 1 || this.entry === Infinity) {
@@ -237,16 +242,16 @@ export default {
         window.addEventListener('keydown', (evt) => {
             keysDown[evt.key] = true;
             switch(evt.key) {
-                case '0': this.ent('0'); break;
-                case '1': this.ent('1'); break;
-                case '2': this.ent('2'); break;
-                case '3': this.ent('3'); break;
-                case '4': this.ent('4'); break;
-                case '5': this.ent('5'); break;
-                case '6': this.ent('6'); break;
-                case '7': this.ent('7'); break;
-                case '8': this.ent('8'); break;
-                case '9': this.ent('9'); break;
+                case '0': this.num('0'); break;
+                case '1': this.num('1'); break;
+                case '2': this.num('2'); break;
+                case '3': this.num('3'); break;
+                case '4': this.num('4'); break;
+                case '5': this.num('5'); break;
+                case '6': this.num('6'); break;
+                case '7': this.num('7'); break;
+                case '8': this.num('8'); break;
+                case '9': this.num('9'); break;
                 case '.': this.dec(); break;
                 case '%': this.per(); break;
                 case 'Delete': this.ce(); break;
@@ -264,7 +269,7 @@ export default {
         window.addEventListener('keyup', (evt) => {
             delete keysDown[evt.key];
         });
-    }
+	}
 }
 </script>
 
@@ -290,7 +295,7 @@ export default {
 		font-size: 0.6em;
 		line-height: 1em;
 		padding: var(--gap);
-		min-height: calc(1em + (var(--gap) * 2)); /* Line height and padding */
+		min-height: calc(1em + (var(--gap) * 2)); /* Line height plus padding */
 		color: darken(white, 20%);
 	}
 	&__answer {
@@ -305,44 +310,12 @@ export default {
 		display: grid;
 		grid-template-rows: repeat(6, 16.6666%);
 		grid-template-columns: repeat(4, 1fr);
-    }
-    &__button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 1.2em;
-        color: #111111;
-        border: 1px solid #7f7f7f;
-        margin: 0;
-		padding: 0;
-        background: #dfdfdfe0;
-        &:hover {background: darken(#dfdfdfe0, 10%);}
-        &:active {background: darken(#dfdfdfe0, 20%);}
-        &--op {
-            background: #c6e9afe0;
-            &:hover {background: darken(#c6e9afe0, 10%);}
-            &:active {background: darken(#c6e9afe0, 20%);}
-        }
-        &--submit {
-            background: #71c837e0;
-            &:hover {background: darken(#71c837e0, 10%);}
-            &:active {background: darken(#71c837e0, 20%);}
-        }
-        &::before, &::after {
-            /* Button aspect ratio */
-            content: '';
-            display: inline-block;
-            width: 1px;
-            height: 0;
-            padding: 80% 0 0 0;
-        }
-        sup {
-            /* Exponents */
-            position: relative;
-            top: -0.5em;
-            font-size: .6em;
-        }
+		grid-template-areas: "per ce c back"
+							 "sqrt sqr pow div"
+							 "n7 n8 n9 mul"
+							 "n4 n5 n6 sub"
+							 "n1 n2 n3 add"
+							 "sign n0 dec solve";
     }
 }
 
