@@ -281,7 +281,7 @@ export default {
 	grid-template-rows: auto minmax(0, 1fr);
 	grid-template-columns: 1fr;
     font-size: calc(var(--gap) * 2);
-	max-width: 420px;
+	max-width: 640px;
 	max-height: 100vh;
 	backdrop-filter: blur(3px);
 	&__display {
@@ -309,15 +309,32 @@ export default {
 	}
 	&__buttons {
 		display: grid;
-		grid-template-rows: repeat(6, 16.6666%);
-		grid-template-columns: repeat(4, 1fr);
-		grid-template-areas: "per ce c back"
-							 "sqrt sqr pow div"
-							 "n7 n8 n9 mul"
-							 "n4 n5 n6 sub"
-							 "n1 n2 n3 add"
-							 "sign n0 dec solve";
+		grid-template-rows: repeat(4, 25%);
+		grid-template-columns: repeat(6, 1fr);
+		grid-template-areas: 
+			"n7 n8 n9 ce c back"
+			"n4 n5 n6 pow div sub"
+			"n1 n2 n3 sqr mul add"
+			"sign n0 dec sqrt per solve";
     }
+}
+
+@media (min-height: 420px) {
+	/* Portrait button layout */
+	.calculator {
+		max-width: 420px;
+		&__buttons {
+			grid-template-rows: repeat(6, 16.6666%);
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-areas: 
+				"per ce c back"
+				"sqrt sqr pow div"
+				"n7 n8 n9 mul"
+				"n4 n5 n6 sub"
+				"n1 n2 n3 add"
+				"sign n0 dec solve";
+		}
+	}
 }
 
 @media (min-width: 360px) {
