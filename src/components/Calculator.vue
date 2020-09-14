@@ -5,29 +5,29 @@
             <div :class="['calculator__answer', 'calculator__answer--' + answerSize]">{{answer}}</div>
         </output>
         <form class="calculator__buttons" id="calculator__buttons" @submit.prevent="solve">
-            <calc-btn version="op" area="per" @click="per">%</calc-btn>
-            <calc-btn version="op" area="ce" @click="ce">CE</calc-btn>
-            <calc-btn version="op" area="c" @click="clear">C</calc-btn>
-            <calc-btn version="op" area="back" @click="back">&#8612;</calc-btn>
-            <calc-btn version="op" area="sqrt" @click="sqrt">&radic;</calc-btn>
-            <calc-btn version="op" area="sqr" @click="sqr">x<sup>2</sup></calc-btn>
-            <calc-btn version="op" area="pow" @click="pow">x<sup>y</sup></calc-btn>
-            <calc-btn version="op" area="div" @click="op('/')">&divide;</calc-btn>
-            <calc-btn version="num" area="n7" @click="num('7')">7</calc-btn>
-            <calc-btn version="num" area="n8" @click="num('8')">8</calc-btn>
-            <calc-btn version="num" area="n9" @click="num('9')">9</calc-btn>
-            <calc-btn version="op" area="mul" @click="op('*')">&times;</calc-btn>
-            <calc-btn version="num" area="n4" @click="num('4')">4</calc-btn>
-            <calc-btn version="num" area="n5" @click="num('5')">5</calc-btn>
-            <calc-btn version="num" area="n6" @click="num('6')">6</calc-btn>
-            <calc-btn version="op" area="sub" @click="op('-')">&minus;</calc-btn>
-            <calc-btn version="num" area="n1" @click="num('1')">1</calc-btn>
-            <calc-btn version="num" area="n2" @click="num('2')">2</calc-btn>
-            <calc-btn version="num" area="n3" @click="num('3')">3</calc-btn>
-            <calc-btn version="op" area="add" @click="op('+')">+</calc-btn>
-            <calc-btn version="num" area="sign" @click="sign">&#8723;</calc-btn>
-            <calc-btn version="num" area="n0" @click="num('0')">0</calc-btn>
-            <calc-btn version="num" area="dec" @click="dec">.</calc-btn>
+            <calc-btn version="op" area="per" @click.native="per">%</calc-btn>
+            <calc-btn version="op" area="ce" @click.native="ce">CE</calc-btn>
+            <calc-btn version="op" area="c" @click.native="clear">C</calc-btn>
+            <calc-btn version="op" area="back" @click.native="back">&#8612;</calc-btn>
+            <calc-btn version="op" area="sqrt" @click.native="sqrt">&radic;</calc-btn>
+            <calc-btn version="op" area="sqr" @click.native="sqr">x<sup>2</sup></calc-btn>
+            <calc-btn version="op" area="pow" @click.native="pow">x<sup>y</sup></calc-btn>
+            <calc-btn version="op" area="div" @click.native="op('/')">&divide;</calc-btn>
+            <calc-btn version="num" area="n7" @click.native="num('7')">7</calc-btn>
+            <calc-btn version="num" area="n8" @click.native="num('8')">8</calc-btn>
+            <calc-btn version="num" area="n9" @click.native="num('9')">9</calc-btn>
+            <calc-btn version="op" area="mul" @click.native="op('*')">&times;</calc-btn>
+            <calc-btn version="num" area="n4" @click.native="num('4')">4</calc-btn>
+            <calc-btn version="num" area="n5" @click.native="num('5')">5</calc-btn>
+            <calc-btn version="num" area="n6" @click.native="num('6')">6</calc-btn>
+            <calc-btn version="op" area="sub" @click.native="op('-')">&minus;</calc-btn>
+            <calc-btn version="num" area="n1" @click.native="num('1')">1</calc-btn>
+            <calc-btn version="num" area="n2" @click.native="num('2')">2</calc-btn>
+            <calc-btn version="num" area="n3" @click.native="num('3')">3</calc-btn>
+            <calc-btn version="op" area="add" @click.native="op('+')">+</calc-btn>
+            <calc-btn version="num" area="sign" @click.native="sign">&#8723;</calc-btn>
+            <calc-btn version="num" area="n0" @click.native="num('0')">0</calc-btn>
+            <calc-btn version="num" area="dec" @click.native="dec">.</calc-btn>
             <calc-btn version="submit" area="solve">=</calc-btn>
         </form>
     </div>
