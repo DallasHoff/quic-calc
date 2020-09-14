@@ -27,7 +27,7 @@ html {
 	padding: 0;
 	margin: 0;
 	background-color: #f3f3f3;
-	background-image: url('./img/background/1920h.jpg'); /* TODO: make responsive */
+	background-image: url('./img/background/1920x1280.jpg'); /* TODO: make responsive */
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
