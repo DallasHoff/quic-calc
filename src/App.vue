@@ -72,4 +72,24 @@ body {
 @media (min-width: 2560px) {
 	html {background-image: url('./img/background/3840x2560.jpg');}
 }
+
+/* Error pages */
+.error-card {
+	width: 80%;
+	max-width: 480px;
+	margin: 2rem auto;
+	padding: 2rem;
+	text-align: center;
+	background-color: white;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	p {
+		margin: 0;
+	}
+	.error-icon {
+		display: block;
+		width: 30%;
+		height: auto;
+		margin: 2rem auto;
+	}
+}
 </style>
