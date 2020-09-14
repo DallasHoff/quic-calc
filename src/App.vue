@@ -74,22 +74,33 @@ body {
 }
 
 /* Error pages */
-.error-card {
-	width: 80%;
-	max-width: 480px;
-	margin: 2rem auto;
-	padding: 2rem;
-	text-align: center;
-	background-color: white;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-	p {
-		margin: 0;
-	}
-	.error-icon {
-		display: block;
-		width: 30%;
-		height: auto;
+.error-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+	.error-card {
+		width: 80%;
+		max-width: 480px;
 		margin: 2rem auto;
+		padding: 2rem;
+		text-align: center;
+		background-color: #ffffffe0;
+		backdrop-filter: blur(3px);
+		box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+		p {
+			margin: 0;
+		}
+		.error-icon {
+			display: block;
+			width: 30%;
+			height: auto;
+			margin: 2rem auto;
+		}
 	}
 }
 </style>
