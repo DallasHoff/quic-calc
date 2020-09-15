@@ -28,6 +28,7 @@ export default {
     margin: 0;
     padding: 0;
     background: #dfdfdfe0;
+    user-select: none;
     &:hover {background: darken(#dfdfdfe0, 10%);}
     &:active {background: darken(#dfdfdfe0, 20%);}
     /* Version color variations */
