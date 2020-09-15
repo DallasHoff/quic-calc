@@ -277,20 +277,24 @@ export default {
 <style lang="scss">
 .calculator {
 	--gap: 7px;
+	--bd-filter: blur(3px);
 	display: grid;
 	grid-template-rows: auto minmax(0, 1fr);
 	grid-template-columns: 1fr;
     font-size: calc(var(--gap) * 2);
 	max-width: 640px;
 	max-height: 100vh;
-	backdrop-filter: blur(3px);
+	padding: 0;
+	padding-left: env(safe-area-inset-left);
+	padding-right: env(safe-area-inset-right);
 	&__display {
 		font-size: 1.6em;
         display: block;
+		padding: var(--gap);
 		text-align: right;
 		color: white;
 		background-color: #111111e0;
-		padding: var(--gap);
+		backdrop-filter: var(--bd-filter);
 	}
 	&__problem {
 		font-size: 0.6em;
@@ -316,6 +320,7 @@ export default {
 			"n4 n5 n6 pow div sub"
 			"n1 n2 n3 sqr mul add"
 			"sign n0 dec sqrt per solve";
+		backdrop-filter: var(--bd-filter);
     }
 }
 

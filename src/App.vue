@@ -24,6 +24,7 @@ html {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	word-wrap: break-word;
+	position: relative;
 	padding: 0;
 	margin: 0;
 	background-color: #f3f3f3;
@@ -31,17 +32,25 @@ html {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	height: 100%;
+	overflow: hidden;
 }
 body {
 	padding: 0;
 	margin: 0;
 	background: none;
+	height: 100%;
+	overflow: hidden;
 }
 #app {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
+	position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 	.calculator {
 		flex: 1 0 0;
 	}
