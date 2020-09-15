@@ -84,6 +84,7 @@ body {
 
 /* Error pages */
 .error-page {
+	z-index: 2000;
 	display: flex;
 	align-items: center;
 	justify-content: center;
