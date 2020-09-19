@@ -48,7 +48,8 @@ export default {
             answer: 0,
             onOp: false,
             onDec: false,
-            onPow: false
+			onPow: false,
+			onAns: false
         }
 	},
 	computed: {
@@ -90,9 +91,14 @@ export default {
 			this.onOp = false;
 			this.onDec = false;
 			this.onPow = false;
+			this.onAns = false;
 		},
 		ce() {
-            // Clear entry button
+			// Clear entry button
+			if (this.onAns) {
+				this.clear();
+				return;
+			}
 			this.onDec = false;
 			if (!isNaN(this.problem[this.problem.length - 1])) {
 				this.problem.pop();
@@ -102,7 +108,8 @@ export default {
 			this.answer = 0;
 		},
 		num(char) {
-            // Number button
+			// Number button
+			this.carryAnswer();
 			this.onOp = false;
 			if (this.problem.length === 1 || this.entry === Infinity) {
 				this.ce();
@@ -116,6 +123,9 @@ export default {
 		},
 		dec() {
             // Decimal button
+			if (this.onAns) {
+				this.clear();
+			}
 			this.onDec = true;
 			if (!this.entry) {
 				this.answer = '0.';
@@ -125,6 +135,7 @@ export default {
 		},
 		op(char) {
             // Add, subtract, multiply, or divide button
+			this.carryAnswer();
 			if (this.problem.length === 0 && this.entry === '') return;
 			this.powSolve();
 			if (this.onOp) {
@@ -142,6 +153,7 @@ export default {
 		},
 		sign() {
             // Positive/negative button
+			this.carryAnswer(true);
 			if (this.entry) {
 				this.entry *= -1;
 				this.answer = this.addCommas(this.entry);
@@ -161,6 +173,7 @@ export default {
 		},
 		sqrt() {
             // Square root button
+			this.carryAnswer(true);
 			if (this.entry) {
 				this.entry = Math.sqrt(this.entry);
 				this.answer = this.addCommas(this.entry);
@@ -168,6 +181,7 @@ export default {
 		},
 		sqr() {
             // Square button
+			this.carryAnswer(true);
 			if (this.entry) {
 				this.entry = Math.pow(this.entry, 2);
 				this.answer = this.addCommas(this.entry);
@@ -175,6 +189,7 @@ export default {
 		},
 		pow() {
             // Caret/power button
+			this.carryAnswer(true);
 			if (this.entry) {
 				this.onDec = false;
 				this.onPow = true;
@@ -195,6 +210,7 @@ export default {
 		},
 		back() {
             // Backspace button
+			this.carryAnswer(true);
 			if (this.entry) {
 				var newEntry = this.entry.toString().split('');
 				newEntry.pop();
@@ -217,8 +233,22 @@ export default {
 			}
 			return x1 + x2;
 		},
+		carryAnswer(toEntry) {
+			// Carry answer over to next equation
+			if (this.onAns) {
+				if (toEntry) {
+					var answer = this.answer;
+					this.clear();
+					this.entry = answer;
+				} else {
+					this.problem = [this.answer];
+				}
+				this.onAns = false;
+			}
+		},
 		solve() {
 			// Solve entered equation
+			if (this.onAns) return;
 			this.powSolve();
 			if (this.onOp && this.entry === '') {
 				this.entry = 0;
@@ -231,7 +261,8 @@ export default {
 				var equation = this.problem.join(' ');
 				var answer = equation ? eval(equation) : 0;
 				this.answer = this.addCommas(answer);
-				this.problem = [answer];
+				this.problem.push('=');
+				this.onAns = true;
 			} catch(err) {
 				this.answer = 'Error';
 			}
