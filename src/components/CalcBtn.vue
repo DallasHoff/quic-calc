@@ -1,5 +1,5 @@
 <template>
-    <button :type="type" :class="['calculator__button', 'calculator__button--' + version]" :style="{'grid-area': area}">
+    <button :type="type" :class="['calculator__button', 'calculator__button--' + version]" :style="{'grid-area': area}" @keypress.enter.prevent>
         <slot></slot>
     </button>
 </template>
