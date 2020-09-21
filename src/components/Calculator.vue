@@ -285,10 +285,13 @@ export default {
                 case '8': this.num('8'); break;
                 case '9': this.num('9'); break;
                 case '.': this.dec(); break;
+                case '`': this.sign(); break;
                 case '%': this.per(); break;
                 case 'Delete': this.ce(); break;
                 case 'Escape': this.clear(); break;
                 case 'Backspace': this.back(); break;
+                case 'R': this.sqrt(); break;
+                case 'S': this.sqr(); break;
                 case '^': this.pow(); break;
                 case '/': this.op('/'); break;
                 case '*': this.op('*'); break;
