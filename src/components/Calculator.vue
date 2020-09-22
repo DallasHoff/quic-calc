@@ -87,7 +87,7 @@ export default {
 	watch: {
 		entry(n, o) {
 			var nAbs = Math.abs(n);
-			if (nAbs > MAX_NUMBER || nAbs === Infinity) {
+			if (nAbs > MAX_NUMBER || !isFinite(nAbs)) {
 				this.ce();
 				this.answer = 'Too Much!';
 			}
@@ -251,7 +251,7 @@ export default {
 			// Carry answer over to next equation
 			if (this.onAns) {
 				var answer = Number(this.answer.replace(/,/g, ''));
-				if (isNaN(answer)) answer = 0;
+				if (isNaN(answer) || !isFinite(answer)) answer = 0;
 				if (toEntry) {
 					this.clear();
 					this.entry = answer;
@@ -280,7 +280,8 @@ export default {
 					if (isNaN(answer)) throw 'NaN';
 					this.problem.push('=');
 				}
-				if (Math.abs(answer) > MAX_NUMBER) {
+				var answerAbs = Math.abs(answer);
+				if (answerAbs > MAX_NUMBER && answerAbs !== Infinity) {
 					this.answer = 'Too Much!';
 				} else {
 					this.answer = this.addCommas(answer);
