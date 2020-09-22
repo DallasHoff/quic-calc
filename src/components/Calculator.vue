@@ -36,6 +36,8 @@
 <script>
 import CalcBtn from '@/components/CalcBtn.vue';
 
+const MAX_NUMBER = 999999999999999;
+
 export default {
 	name: 'Calculator',
 	components: {
@@ -82,6 +84,15 @@ export default {
 			return 'xsmall';
 		}
 	},
+	watch: {
+		entry(n, o) {
+			var nAbs = Math.abs(n);
+			if (nAbs > MAX_NUMBER || nAbs === Infinity) {
+				this.ce();
+				this.answer = 'Too Much!';
+			}
+		}
+	},
 	methods: {
 		clear() {
             // Clear button
@@ -111,14 +122,14 @@ export default {
 			// Number button
 			this.carryAnswer();
 			this.onOp = false;
-			if (this.problem.length === 1 || this.entry === Infinity) {
+			if (this.problem.length === 1) {
 				this.ce();
 			}
 			if (this.onDec && !this.entry.toString().includes('.')) {
 				this.entry += '.';
 			}
-			this.entry += char;
-			this.entry = Number(this.entry);
+			var newNumber = Number(this.entry + char);
+			this.entry = newNumber;
 			this.answer = this.addCommas(this.entry);
 		},
 		dec() {
@@ -155,6 +166,7 @@ export default {
             // Positive/negative button
 			this.carryAnswer(true);
 			if (this.entry) {
+				this.onDec = false;
 				this.entry *= -1;
 				this.answer = this.addCommas(this.entry);
 			}
@@ -164,6 +176,7 @@ export default {
 			var prevNum = this.problem[this.problem.length - 2];
             if (this.entry) {
                 if (!isNaN(prevNum)) {
+					this.onDec = false;
                     this.entry = prevNum * (this.entry / 100);
                     this.answer = this.addCommas(this.entry);
                 } else {
@@ -175,6 +188,7 @@ export default {
             // Square root button
 			this.carryAnswer(true);
 			if (this.entry) {
+				this.onDec = false;
 				this.entry = Math.sqrt(this.entry);
 				this.answer = this.addCommas(this.entry);
 			}
@@ -183,6 +197,7 @@ export default {
             // Square button
 			this.carryAnswer(true);
 			if (this.entry) {
+				this.onDec = false;
 				this.entry = Math.pow(this.entry, 2);
 				this.answer = this.addCommas(this.entry);
 			}
@@ -212,13 +227,12 @@ export default {
             // Backspace button
 			this.carryAnswer(true);
 			if (this.entry) {
+				this.onDec = false;
 				var newEntry = this.entry.toString().split('');
 				newEntry.pop();
-				this.entry = Number(newEntry.join(''));
+				var newNumber = Number(newEntry.join(''));
+				this.entry = newNumber ? newNumber : 0;
 				this.answer = this.addCommas(this.entry);
-				if (!this.entry) {
-					this.onOp = true;
-				}
 			}
 		},
 		addCommas(nStr) {
@@ -236,12 +250,13 @@ export default {
 		carryAnswer(toEntry) {
 			// Carry answer over to next equation
 			if (this.onAns) {
+				var answer = Number(this.answer.replace(/,/g, ''));
+				if (isNaN(answer)) answer = 0;
 				if (toEntry) {
-					var answer = this.answer;
 					this.clear();
 					this.entry = answer;
 				} else {
-					this.problem = [this.answer];
+					this.problem = [answer];
 				}
 				this.onAns = false;
 			}
@@ -259,11 +274,20 @@ export default {
 			this.entry = '';
 			try {
 				var equation = this.problem.join(' ');
-				var answer = equation ? eval(equation) : 0;
-				this.answer = this.addCommas(answer);
-				this.problem.push('=');
+				var answer = 0;
+				if (equation.trim()) {
+					answer = eval(equation);
+					if (isNaN(answer)) throw 'NaN';
+					this.problem.push('=');
+				}
+				if (Math.abs(answer) > MAX_NUMBER) {
+					this.answer = 'Too Much!';
+				} else {
+					this.answer = this.addCommas(answer);
+				}
 				this.onAns = true;
 			} catch(err) {
+				this.clear();
 				this.answer = 'Error';
 			}
 		}
