@@ -47,7 +47,7 @@ export default {
         return {
             entry: '',
             problem: [],
-            answer: 0,
+            answer: '0',
             onOp: false,
             onDec: false,
 			onPow: false,
@@ -59,14 +59,14 @@ export default {
             // Format numbers and symbols for display
             var equation = this.problem.slice();
 			for (var x in equation) {
-				if (!isNaN(equation[x])) {
-					equation[x] = this.$options.methods.addCommas(equation[x]);
-				} else if (equation[x] === '/') {
+				if (equation[x] === '/') {
 					equation[x] = '&divide;'
 				} else if  (equation[x] === '*') {
 					equation[x] = '&times;'
 				} else if  (equation[x] === '-') {
 					equation[x] = '&minus;'
+				} else {
+					equation[x] = this.$options.methods.addCommas(equation[x]);
 				}
 			}
 			return equation.join(' ');
@@ -98,7 +98,7 @@ export default {
             // Clear button
 			this.entry = '';
 			this.problem = [];
-			this.answer = 0;
+			this.answer = '0';
 			this.onOp = false;
 			this.onDec = false;
 			this.onPow = false;
@@ -111,24 +111,28 @@ export default {
 				return;
 			}
 			this.onDec = false;
-			if (!isNaN(this.problem[this.problem.length - 1])) {
-				this.problem.pop();
-			}
 			this.onOp = true;
 			this.entry = '';
-			this.answer = 0;
+			this.answer = '0';
 		},
 		num(char) {
 			// Number button
 			this.carryAnswer();
 			this.onOp = false;
 			if (this.problem.length === 1) {
-				this.ce();
+				this.problem.pop();
 			}
-			if (this.onDec && !this.entry.toString().includes('.')) {
-				this.entry += '.';
+			if (this.onDec) {
+				if (!this.entry) {
+					this.entry = '0.';
+				} else if (!this.entry.toString().includes('.')) {
+					this.entry += '.';
+				}
 			}
-			var newNumber = Number(this.entry + char);
+			if (this.entry === '0') {
+				this.entry = '';
+			}
+			var newNumber = this.entry + char;
 			this.entry = newNumber;
 			this.answer = this.addCommas(this.entry);
 		},
@@ -141,7 +145,7 @@ export default {
 			if (!this.entry) {
 				this.answer = '0.';
 			} else {
-				this.answer = this.addCommas(String(this.entry) + '.');
+				this.answer = this.addCommas((this.entry).toString() + '.');
 			}
 		},
 		op(char) {
@@ -160,12 +164,12 @@ export default {
 			}
 			this.problem.push(char);
 			this.entry = '';
-			this.answer = 0;
+			this.answer = '0';
 		},
 		sign() {
             // Positive/negative button
 			this.carryAnswer(true);
-			if (this.entry) {
+			if (this.entry && this.entry !== '0') {
 				this.onDec = false;
 				this.entry *= -1;
 				this.answer = this.addCommas(this.entry);
@@ -173,11 +177,11 @@ export default {
 		},
 		per() {
             // Percent button
-			var prevNum = this.problem[this.problem.length - 2];
+			var prevNum = Number(this.problem[this.problem.length - 2]);
             if (this.entry) {
                 if (!isNaN(prevNum)) {
 					this.onDec = false;
-                    this.entry = prevNum * (this.entry / 100);
+                    this.entry = (prevNum * (this.entry / 100)).toString();
                     this.answer = this.addCommas(this.entry);
                 } else {
                     this.ce();
@@ -189,7 +193,7 @@ export default {
 			this.carryAnswer(true);
 			if (this.entry) {
 				this.onDec = false;
-				this.entry = Math.sqrt(this.entry);
+				this.entry = Math.sqrt(this.entry).toString();
 				this.answer = this.addCommas(this.entry);
 			}
 		},
@@ -198,7 +202,7 @@ export default {
 			this.carryAnswer(true);
 			if (this.entry) {
 				this.onDec = false;
-				this.entry = Math.pow(this.entry, 2);
+				this.entry = Math.pow(this.entry, 2).toString();
 				this.answer = this.addCommas(this.entry);
 			}
 		},
@@ -211,7 +215,7 @@ export default {
 				this.problem.push(this.entry);
 				this.problem.push('^');
 				this.entry = '';
-				this.answer = 0;
+				this.answer = '0';
 			}
 		},
 		powSolve() {
@@ -219,7 +223,7 @@ export default {
 			if (this.onPow) {
 				this.onPow = false;
 				this.problem.pop();
-				this.entry = Math.pow(this.problem.pop(), this.entry);
+				this.entry = Math.pow(this.problem.pop(), this.entry).toString();
 				this.answer = this.addCommas(this.entry);
 			}
 		},
@@ -228,10 +232,10 @@ export default {
 			this.carryAnswer(true);
 			if (this.entry) {
 				this.onDec = false;
-				var newEntry = this.entry.toString().split('');
-				newEntry.pop();
-				var newNumber = Number(newEntry.join(''));
-				this.entry = newNumber ? newNumber : 0;
+				var entryChars = this.entry.toString().split('');
+				entryChars.pop();
+				var newEntry = entryChars.join('');
+				this.entry = newEntry ? newEntry : '0';
 				this.answer = this.addCommas(this.entry);
 			}
 		},
@@ -247,16 +251,20 @@ export default {
 			}
 			return x1 + x2;
 		},
+		removeCommas(nStr) {
+			return nStr.replace(/,/g, '');
+		},
 		carryAnswer(toEntry) {
 			// Carry answer over to next equation
 			if (this.onAns) {
-				var answer = Number(this.answer.replace(/,/g, ''));
-				if (isNaN(answer) || !isFinite(answer)) answer = 0;
+				var answerStr = this.removeCommas(this.answer.toString());
+				var answer = Number(answerStr);
+				if (isNaN(answer) || !isFinite(answer)) answerStr = '0';
 				if (toEntry) {
 					this.clear();
-					this.entry = answer;
+					this.entry = answerStr;
 				} else {
-					this.problem = [answer];
+					this.problem = [answerStr];
 				}
 				this.onAns = false;
 			}
@@ -266,7 +274,7 @@ export default {
 			if (this.onAns) return;
 			this.powSolve();
 			if (this.onOp && this.entry === '') {
-				this.entry = 0;
+				this.entry = '0';
 			}
 			this.onOp = false;
 			this.onDec = false;
