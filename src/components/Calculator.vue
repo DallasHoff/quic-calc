@@ -2,7 +2,7 @@
     <div class="calculator">
         <output class="calculator__display" form="calculator__buttons">
             <div class="calculator__problem" v-html="equation"></div>
-            <div :class="['calculator__answer', 'calculator__answer--' + answerSize]">{{answer}}</div>
+            <div :class="['calculator__answer', 'calculator__answer--' + answerSize]">{{answer | limitLength(25)}}</div>
         </output>
         <form class="calculator__buttons" id="calculator__buttons" @submit.prevent="solve">
             <calc-btn version="op" area="per" @click.native="per">%</calc-btn>
@@ -35,8 +35,14 @@
 
 <script>
 import CalcBtn from '@/components/CalcBtn.vue';
+import ExactMath from 'exact-math';
 
 const MAX_NUMBER = 999999999999999;
+const MATH_CONFIG = {
+	returnString: true,
+	ePlus: 14,
+	maxDecimal: 9
+};
 
 export default {
 	name: 'Calculator',
@@ -171,17 +177,18 @@ export default {
 			this.carryAnswer(true);
 			if (this.entry && this.entry !== '0') {
 				this.onDec = false;
-				this.entry *= -1;
+				this.entry = ExactMath.mul(this.entry, -1, MATH_CONFIG);
 				this.answer = this.addCommas(this.entry);
 			}
 		},
 		per() {
             // Percent button
-			var prevNum = Number(this.problem[this.problem.length - 2]);
+			var prevNum = this.problem[this.problem.length - 2];
             if (this.entry) {
                 if (!isNaN(prevNum)) {
 					this.onDec = false;
-                    this.entry = (prevNum * (this.entry / 100)).toString();
+					var perFraction = ExactMath.div(this.entry, 100, MATH_CONFIG);
+					this.entry = ExactMath.mul(perFraction, prevNum, MATH_CONFIG);
                     this.answer = this.addCommas(this.entry);
                 } else {
                     this.ce();
@@ -193,6 +200,7 @@ export default {
 			this.carryAnswer(true);
 			if (this.entry) {
 				this.onDec = false;
+				//var sqrt = ExactMath.pow(this.entry, 0.5, MATH_CONFIG); TODO Issue: https://github.com/devrafalko/exact-math/issues/20
 				var sqrt = Math.sqrt(this.entry);
 				if (isNaN(sqrt)) return this.calculationError();
 				this.entry = sqrt.toString();
@@ -204,7 +212,7 @@ export default {
 			this.carryAnswer(true);
 			if (this.entry) {
 				this.onDec = false;
-				this.entry = Math.pow(this.entry, 2).toString();
+				this.entry = ExactMath.pow(this.entry, 2, MATH_CONFIG);
 				this.answer = this.addCommas(this.entry);
 			}
 		},
@@ -224,8 +232,10 @@ export default {
             // Calculate power entered
 			if (this.onPow) {
 				this.onPow = false;
-				this.problem.pop();
-				this.entry = Math.pow(this.problem.pop(), this.entry).toString();
+				this.problem.pop(); // Remove caret from problem
+				var base = this.problem.pop();
+				//this.entry = ExactMath.pow(base, this.entry, MATH_CONFIG); TODO
+				this.entry = Math.pow(base, this.entry).toString();
 				this.answer = this.addCommas(this.entry);
 			}
 		},
@@ -258,14 +268,13 @@ export default {
 			return x1 + x2;
 		},
 		removeCommas(nStr) {
-			return nStr.replace(/,/g, '');
+			return nStr.toString().replace(/,/g, '');
 		},
 		carryAnswer(toEntry) {
 			// Carry answer over to next equation
 			if (this.onAns) {
-				var answerStr = this.removeCommas(this.answer.toString());
-				var answer = Number(answerStr);
-				if (isNaN(answer) || !isFinite(answer)) answerStr = '0';
+				var answerStr = this.removeCommas(this.answer);
+				if (isNaN(answerStr) || !isFinite(answerStr)) answerStr = '0';
 				if (toEntry) {
 					this.clear();
 					this.entry = answerStr;
@@ -292,9 +301,13 @@ export default {
 			this.entry = '';
 			try {
 				var equation = this.problem.join(' ');
-				var answer = 0;
+				var answer = '0';
 				if (equation.trim()) {
-					answer = eval(equation);
+					if (eval(equation) === Infinity) {
+						answer = Infinity;
+					} else {
+						answer = ExactMath.formula(equation, MATH_CONFIG);
+					}
 					if (isNaN(answer)) throw 'NaN';
 					this.problem.push('=');
 				}
@@ -309,7 +322,17 @@ export default {
 				this.calculationError();
 			}
 		}
-    },
+	},
+	filters: {
+		limitLength(str, limit) {
+			str = str.toString();
+			var len = str.length;
+			if (len > limit) {
+				str = str.split('').slice(0, limit).join('');
+			}
+			return str;
+		}
+	},
     mounted() {
         // Keyboard input
         var keysDown = {};
