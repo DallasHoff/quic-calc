@@ -193,7 +193,9 @@ export default {
 			this.carryAnswer(true);
 			if (this.entry) {
 				this.onDec = false;
-				this.entry = Math.sqrt(this.entry).toString();
+				var sqrt = Math.sqrt(this.entry);
+				if (isNaN(sqrt)) return this.calculationError();
+				this.entry = sqrt.toString();
 				this.answer = this.addCommas(this.entry);
 			}
 		},
@@ -273,6 +275,10 @@ export default {
 				this.onAns = false;
 			}
 		},
+		calculationError(message) {
+			this.clear();
+			this.answer = message ? message : 'Error';
+		},
 		solve() {
 			// Solve entered equation
 			if (this.onAns) return;
@@ -300,8 +306,7 @@ export default {
 				}
 				this.onAns = true;
 			} catch(err) {
-				this.clear();
-				this.answer = 'Error';
+				this.calculationError();
 			}
 		}
     },
