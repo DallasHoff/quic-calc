@@ -235,7 +235,11 @@ export default {
 				var entryChars = this.entry.toString().split('');
 				entryChars.pop();
 				var newEntry = entryChars.join('');
-				this.entry = newEntry ? newEntry : '0';
+				if (!newEntry || newEntry === '-') {
+					this.entry = '0';
+				} else {
+					this.entry = newEntry;
+				}
 				this.answer = this.addCommas(this.entry);
 			}
 		},
