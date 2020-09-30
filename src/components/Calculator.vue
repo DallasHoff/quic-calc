@@ -40,6 +40,7 @@ import ExactMath from 'exact-math';
 const MAX_NUMBER = 999999999999999;
 const MATH_CONFIG = {
 	returnString: true,
+	divideByZeroError: true,
 	ePlus: 14,
 	maxDecimal: 9
 };
@@ -92,8 +93,7 @@ export default {
 	},
 	watch: {
 		entry(n, o) {
-			var nAbs = Math.abs(n);
-			if (nAbs > MAX_NUMBER || !isFinite(nAbs)) {
+			if (this.isTooMuch(n) === true) {
 				this.ce();
 				this.answer = 'Too Much!';
 			}
@@ -270,6 +270,10 @@ export default {
 		removeCommas(nStr) {
 			return nStr.toString().replace(/,/g, '');
 		},
+		isTooMuch(num) {
+			num = Math.abs(num);
+			return num > MAX_NUMBER || !isFinite(num);
+		},
 		carryAnswer(toEntry) {
 			// Carry answer over to next equation
 			if (this.onAns) {
@@ -303,23 +307,22 @@ export default {
 				var equation = this.problem.join(' ');
 				var answer = '0';
 				if (equation.trim()) {
-					if (eval(equation) === Infinity) {
-						answer = Infinity;
-					} else {
-						answer = ExactMath.formula(equation, MATH_CONFIG);
-					}
+					answer = ExactMath.formula(equation, MATH_CONFIG);
 					if (isNaN(answer)) throw 'NaN';
 					this.problem.push('=');
 				}
-				var answerAbs = Math.abs(answer);
-				if (answerAbs > MAX_NUMBER && answerAbs !== Infinity) {
+				if (this.isTooMuch(answer) === true) {
 					this.answer = 'Too Much!';
 				} else {
 					this.answer = this.addCommas(answer);
 				}
 				this.onAns = true;
 			} catch(err) {
-				this.calculationError();
+				console.log(err);
+				if (err.toString().includes('division by zero')) {
+					return this.calculationError('Cannot Divide By Zero');
+				}
+				return this.calculationError();
 			}
 		}
 	},

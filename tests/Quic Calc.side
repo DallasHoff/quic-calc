@@ -858,7 +858,7 @@
         ["xpath=//div[@id='app']/div/output/div[2]", "xpath:idRelative"],
         ["xpath=//output/div[2]", "xpath:position"]
       ],
-      "value": "Infinity"
+      "value": "Cannot Divide By Zero"
     }, {
       "id": "8f51100f-fd7c-4be7-9e72-c5e273192154",
       "comment": "",
