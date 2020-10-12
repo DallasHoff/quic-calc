@@ -1,4 +1,32 @@
 module.exports = {
+    pages: {
+        index: {
+            template: 'public/index.html',
+            entry: 'src/index.js',
+            filename: 'index.html'
+        },
+        dev: {
+            template: 'public/dev/index.html',
+            entry: 'src/dev.js',
+            filename: 'dev/index.html'
+        }
+    },
+    chainWebpack: (config) => {
+        // Make pages PHP files instead of HTML
+        const pages = {
+            index: 'index.php',
+            dev: 'dev/index.php'
+        };
+        if (process.env.NODE_ENV === 'production') {
+            for (let page in pages) {
+                let pagePath = pages[page];
+                config.plugin('html-' + page).tap((opts) => {
+                    opts[0].filename = pagePath;
+                    return opts;
+                });
+            }
+        }
+    },
     pwa: {
         name: 'Quic Calc',
         themeColor: '#71c837',
@@ -37,14 +65,5 @@ module.exports = {
             swSrc: 'public/service-worker.js',
             exclude: ['service-worker.js', 'robots.txt']
         }
-    },
-    chainWebpack: (config) => {
-        // Make home page a PHP file instead of HTML
-        /*if (process.env.NODE_ENV === 'production') {
-            config.plugin('html').tap((opts) => {
-                opts[0].filename = 'index.php';
-                return opts;
-            });
-        }*/
     }
 };
