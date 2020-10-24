@@ -11,3 +11,14 @@ function log_action($action, $category = NULL, $value = NULL) {
     $logStatement->execute();
     $logStatement->close();
 }
+
+
+// API
+$logAction = $_POST['action'];
+$logCategory = $_POST['category'];
+$logValue = $_POST['value'];
+
+if (isset($logAction)) {
+    log_action($logAction, $logCategory, $logValue);
+    echo 'Logged Successfully';
+}
