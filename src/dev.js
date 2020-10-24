@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Api from './api'
+import Api from './Api'
 import './registerServiceWorker'
 
 
