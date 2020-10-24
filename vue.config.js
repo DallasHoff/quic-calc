@@ -13,7 +13,7 @@ module.exports = {
     },
     chainWebpack: (config) => {
         // Make pages PHP files instead of HTML
-        const pages = {
+        /*const pages = {
             index: 'index.php',
             dev: 'dev/index.php'
         };
@@ -25,7 +25,7 @@ module.exports = {
                     return opts;
                 });
             }
-        }
+        }*/
     },
     pwa: {
         name: 'Quic Calc',
