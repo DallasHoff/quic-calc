@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import logAction from './logger'
+import Api from './api'
 import './registerServiceWorker'
 
 
@@ -12,7 +12,7 @@ new Vue({
 }).$mount('#app')
 
 // Log Page View
-logAction({
+Api('logger.php', 'POST', {
 	action: 'home page view',
 	category: 'page view'
 });
