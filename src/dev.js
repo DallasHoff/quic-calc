@@ -12,7 +12,7 @@ new Vue({
 }).$mount('#app')
 
 // Log Page View
-Api('logger.php', 'POST', {
+Api('action-log.php', 'POST', {
 	action: 'home page view',
 	category: 'page view'
 });
