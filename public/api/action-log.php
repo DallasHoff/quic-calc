@@ -82,84 +82,79 @@ if ($authKey !== 'demo') {
 }
 
 
-try {
-    switch ($method) {
+switch ($method) {
 
-        case 'POST':
-            $logAction = $_POST['action'];
-            $logCategory = $_POST['category'];
-            $logValue = $_POST['value'];
+    case 'POST':
+        $logAction = $_POST['action'];
+        $logCategory = $_POST['category'];
+        $logValue = $_POST['value'];
 
-            if (!isset($logAction)) {
-                echo 'Parameter "action" is required.';
-                http_response_code(400);
-                exit();
-            }
-
-            log_action($logAction, $logCategory, $logValue);
-            echo 'Logged successfully.';
-            http_response_code(200);
+        if (!isset($logAction)) {
+            echo 'Parameter "action" is required.';
+            http_response_code(400);
             exit();
+        }
+
+        log_action($logAction, $logCategory, $logValue);
+        echo 'Logged successfully.';
+        http_response_code(200);
+        exit();
 
 
-        case 'GET':
-            $logAction = $_GET['action'];
-            $logCategory = $_GET['category'];
-            $logId = $_GET['id'];
-            $logLimit = $_GET['limit'];
+    case 'GET':
+        $logAction = $_GET['action'];
+        $logCategory = $_GET['category'];
+        $logId = $_GET['id'];
+        $logLimit = $_GET['limit'];
 
-            if (isset($logId) && !is_numeric($logId)) {
-                echo 'Parameter "id" must be an integer ID number.';
-                http_response_code(400);
-                exit();
-            }
-            if (isset($logLimit) && !is_numeric($logLimit)) {
-                echo 'Parameter "limit" must be an integer ID number.';
-                http_response_code(400);
-                exit();
-            }
-
-            $logOutput = read_log($logAction, $logCategory, $logId, $logLimit);
-            if (empty($logOutput)) {
-                echo 'No matching log items were found.';
-                http_response_code(404);
-                exit();
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode($logOutput);
-            http_response_code(200);
+        if (isset($logId) && !is_numeric($logId)) {
+            echo 'Parameter "id" must be an integer ID number.';
+            http_response_code(400);
             exit();
-
-
-        case 'DELETE':
-            $logId = $_GET['id'];
-
-            if (!isset($logId) || !is_numeric($logId)) {
-                echo 'Parameter "id" must be an integer ID number.';
-                http_response_code(400);
-                exit();
-            }
-
-            $idInt = intval($logId);
-            delete_action($idInt);
-            echo 'Log item deleted successfully.';
-            http_response_code(200);
+        }
+        if (isset($logLimit) && !is_numeric($logLimit)) {
+            echo 'Parameter "limit" must be an integer ID number.';
+            http_response_code(400);
             exit();
+        }
 
-
-        case 'HEAD':
-            http_response_code(200);
+        $logOutput = read_log($logAction, $logCategory, $logId, $logLimit);
+        if (empty($logOutput)) {
+            echo 'No matching log items were found.';
+            http_response_code(404);
             exit();
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($logOutput);
+        http_response_code(200);
+        exit();
 
 
-        default:
-            http_response_code(405);
+    case 'DELETE':
+        $logId = $_GET['id'];
+
+        if (!isset($logId) || !is_numeric($logId)) {
+            echo 'Parameter "id" must be an integer ID number.';
+            http_response_code(400);
             exit();
+        }
+
+        $idInt = intval($logId);
+        delete_action($idInt);
+        echo 'Log item deleted successfully.';
+        http_response_code(200);
+        exit();
 
 
-    }
-} catch (Exception $e) {
-    http_response_code(500);
-    exit();
+    case 'HEAD':
+        http_response_code(200);
+        exit();
+
+
+    default:
+        http_response_code(405);
+        exit();
+
+
 }
