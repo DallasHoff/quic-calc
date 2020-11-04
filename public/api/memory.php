@@ -13,7 +13,15 @@ if ($authKey !== 'demo') {
 }
 
 
+$memVal = isset($_COOKIE['mem']) ? $_COOKIE['mem'] : '0';
+
 switch ($method) {
+
+    case 'GET':
+        echo $memVal;
+        http_response_code(200);
+        exit();
+
 
     case 'HEAD':
         http_response_code(200);
