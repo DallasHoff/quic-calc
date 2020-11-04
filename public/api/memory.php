@@ -13,12 +13,38 @@ if ($authKey !== 'demo') {
 }
 
 
-$memVal = isset($_COOKIE['mem']) ? $_COOKIE['mem'] : '0';
+$cookie = 'mem';
+$memVal = isset($_COOKIE[$cookie]) ? floatval($_COOKIE[$cookie]) : 0;
+$cookieExpiry = time() + 86400;
 
 switch ($method) {
 
     case 'GET':
         echo $memVal;
+        http_response_code(200);
+        exit();
+
+
+    case 'PUT':
+        parse_str(file_get_contents('php://input'), $put);
+        $val = $put['value'];
+
+        if (!isset($val)) {
+            echo 'Please use the "value" parameter to specify the amount to add to the memory value.';
+            http_response_code(400);
+            exit();
+        }
+
+        $newVal = $memVal + floatval($val);
+        setcookie($cookie, $newVal, $cookieExpiry);
+        echo $newVal;
+        http_response_code(200);
+        exit();
+
+
+    case 'DELETE':
+        setcookie($cookie, '', -1);
+        echo 'Memory reset';
         http_response_code(200);
         exit();
 
