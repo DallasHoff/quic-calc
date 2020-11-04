@@ -1,9 +1,12 @@
 export default async (endpoint, method, queryData) => {
+	var apiKey = 'demo';
 	var fetchUrl = '/api/' + endpoint;
 	var fetchMethod = method ? method.toUpperCase() : 'GET';
 	var fetchOptions = {
 		method: fetchMethod,
-		headers: {}
+		headers: {
+			'x-api-key': apiKey
+		}
 	};
 	// Serialize and add query data
 	var query = queryData ? Object.keys(queryData).map(key => key + '=' + encodeURIComponent(queryData[key])).join('&') : null;
