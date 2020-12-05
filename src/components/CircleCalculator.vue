@@ -1,6 +1,12 @@
 <template>
     <div class="circle-calculator">
-        <div class="circle-calculator__inner"></div>
+        <form class="circle-calculator__inner" method="GET">
+            <h1>Area of a Circle</h1>
+            <label for="circle-radius">Enter Circle Radius</label>
+            <input type="number" name="radius" id="circle-radius" v-model="radius">
+            <button type="submit">Calculate Area</button>
+        </form>
+        <output v-if="result">Area = {{result}}</output>
     </div>
 </template>
 
@@ -9,11 +15,14 @@ export default {
     name: 'CircleCalculator',
     data() {
         return {
-            php: {}
+            radius: null,
+            result: null
         }
     },
 	created() {
-        Object.assign(this.php, document.body.dataset);
+        var phpDataset = document.body.dataset;
+        this.radius = phpDataset.calcRadius;
+        this.result = phpDataset.calcResult;
 	}
 }
 </script>
@@ -22,14 +31,30 @@ export default {
 .circle-calculator {
 	--bd-filter: blur(3px);
     width: 80%;
-    min-width: 240px;
-    max-width: 480px;
+    max-width: 360px;
     max-height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
     margin: 2rem auto;
     padding: 2rem;
     background-color: #ffffffe0;
 	backdrop-filter: var(--bd-filter);
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    &__inner {
+        margin: 0 0 1rem 0;
+        /* TODO */
+        h1 {
+            margin: 0 0 1rem 0;
+        }
+        label {
+            display: block;
+        }
+        input {
+            display: block;
+        }
+        button {
+            display: block;
+        }
+    }
 }
 </style>

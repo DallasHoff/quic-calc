@@ -11,9 +11,17 @@
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&amp;display=swap" rel="stylesheet">
 </head>
 <?php
-$calcResult = 5 * 4;
+$method = $_SERVER['REQUEST_METHOD'];
+$calcRadius = null;
+$calcResult = null;
+
+if ($method == 'GET' && isset($_GET['radius'])) {
+	$calcRadius = floatval($_GET['radius']);
+	// TODO: calculate area with cloud function
+	$calcResult = 25;
+}
 ?>
-<body data-calc-result="<?= $calcResult ?>">
+<body data-calc-result="<?= htmlentities($calcResult) ?>" data-calc-radius="<?= htmlentities($calcRadius) ?>">
 	<!-- JavaScript not enabled message -->
 	<noscript>
 		<article class="error-page">
