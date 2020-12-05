@@ -5,17 +5,17 @@ module.exports = {
             entry: 'src/index.js',
             filename: 'index.html'
         },
-        dev: {
-            template: 'public/dev/index.html',
-            entry: 'src/dev.js',
-            filename: 'dev/index.html'
+        final: {
+            template: 'public/final/index.html',
+            entry: 'src/final.js',
+            filename: 'final/index.html'
         }
     },
     chainWebpack: (config) => {
         // Make pages PHP files instead of HTML
-        /*const pages = {
+        const pages = {
             index: 'index.php',
-            dev: 'dev/index.php'
+            final: 'final/index.php'
         };
         if (process.env.NODE_ENV === 'production') {
             for (let page in pages) {
@@ -25,7 +25,7 @@ module.exports = {
                     return opts;
                 });
             }
-        }*/
+        }
     },
     pwa: {
         name: 'Quic Calc',

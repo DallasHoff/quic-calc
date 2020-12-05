@@ -380,6 +380,7 @@ export default {
 .calculator {
 	--gap: 7px;
 	--bd-filter: blur(3px);
+	flex: 1 0 0;
 	display: grid;
 	grid-template-rows: auto minmax(0, 1fr);
 	grid-template-columns: 1fr;

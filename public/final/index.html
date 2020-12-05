@@ -10,7 +10,10 @@
 	<meta name="description" content="A Quick Calculator App">
 	<link href="https://fonts.googleapis.com/css2?family=Varela+Round&amp;display=swap" rel="stylesheet">
 </head>
-<body>
+<?php
+$calcResult = 5 * 4;
+?>
+<body data-calc-result="<?= $calcResult ?>">
 	<!-- JavaScript not enabled message -->
 	<noscript>
 		<article class="error-page">

@@ -1,16 +1,16 @@
 <template>
 	<div id="app">
-		<calculator></calculator>
+		<circle-calculator></circle-calculator>
 	</div>
 </template>
 
 <script>
-import Calculator from '@/components/Calculator.vue';
+import CircleCalculator from '@/components/CircleCalculator.vue';
 
 export default {
 	name: 'App',
 	components: {
-		Calculator
+		CircleCalculator
 	}
 }
 </script>
