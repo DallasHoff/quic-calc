@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "b4590d64-97bb-46e4-aa4e-0fbf68d9f6c0",
+		"name": "Dallas_Hoffman_CalculatorTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96fdc73a-88f9-4347-bf18-a6eeac5b1f1b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"pm.test(\"Body has correct title element\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"<title>Quic Calc</title>\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dismob.dallashoffman.com/",
+					"protocol": "https",
+					"host": [
+						"dismob",
+						"dallashoffman",
+						"com"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
