@@ -35,6 +35,75 @@ body {
     bottom: 0;
 }
 
+/* Forms and inputs */
+input[type="text"], input[type="number"], input[type="tel"], input[type="email"], input[type="password"], textarea {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+input[type="text"], input[type="number"], input[type="tel"], input[type="file"], input[type="email"], input[type="password"], select, textarea {
+	display: block;
+	width: 100%;
+	font-size: 1.1rem;
+	font-family: 'Arial', sans-serif;
+	padding: .4rem .6rem;
+	border-radius: 0;
+    border: 1px solid #7f7f7f;
+	background-color: white;
+	box-shadow: none;
+}
+input[type="file"] {font-size: 1em;}
+select {white-space: nowrap;}
+input[type="text"]::placeholder, input[type="number"]::placeholder, input[type="tel"]::placeholder, input[type="email"]::placeholder, input[type="password"]::placeholder, textarea::placeholder {
+	font-size: .8rem;
+	color: #999999;
+	opacity: 1;
+}
+
+.button {
+	display: inline-block;
+	font-size: 1em;
+	font-family: inherit;
+	text-decoration: none;
+	border: none;
+	border-radius: 0;
+	padding: .6em 1em;
+	margin: .2em 0;
+	text-align: center;
+	vertical-align: middle;
+	box-shadow: none;
+	background-color: #71c837e0;
+	background-size: 100%;
+	transition: background-color 600ms, transform 400ms, opacity 400ms !important;
+	overflow: hidden;
+	cursor: pointer;
+	&:hover {
+		background-color: darken(#71c837e0, 10%);
+	}
+	&:active {
+		background-color: darken(#71c837e0, 20%);
+		transform: scale(.92);
+		transition: none !important;
+	}
+	&[disabled] {
+		opacity: .5;
+		pointer-events: none;
+	}
+}
+.button-set {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .2em;
+	.button {
+		flex: 1 0 calc(50% - .2em);
+	}
+}
+
+label {
+	display: block;
+	font-size: .9em;
+}
+
 /* Responsive background image */
 @media (min-width: 360px) {
 	html {background-image: url('./img/background/540x960.jpg');}
