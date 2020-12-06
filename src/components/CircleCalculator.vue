@@ -4,11 +4,14 @@
             <h1 class="circle-calculator__heading">Area of a Circle</h1>
             <form class="circle-calculator__form" method="GET">
                 <label for="circle-radius">Circle Radius</label>
-                <input type="number" name="radius" id="circle-radius" v-model="radius">
+                <input type="number" name="radius" id="circle-radius" step="any" v-model="radius">
                 <button type="submit">Calculate Area</button>
             </form>
             <output class="circle-calculator__output" v-if="result">
                 Area = {{result}}
+            </output>
+            <output class="circle-calculator__output" v-else-if="error">
+                Error: {{error}}
             </output>
         </div>
     </div>
@@ -20,13 +23,15 @@ export default {
     data() {
         return {
             radius: null,
-            result: null
+            result: null,
+            error: null
         }
     },
 	created() {
         var phpDataset = document.body.dataset;
         this.radius = phpDataset.calcRadius;
         this.result = phpDataset.calcResult;
+        this.error = phpDataset.calcError;
 	}
 }
 </script>
