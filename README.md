@@ -1,7 +1,7 @@
 # Quic Calc
 A Quick Calculator App
 
-https://dismob.dallashoffman.com/
+https://calc.dallashoffman.com/
 
 ## Project setup
 ```
