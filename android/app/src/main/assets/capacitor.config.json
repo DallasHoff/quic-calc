@@ -11,7 +11,7 @@
   },
   "cordova": {},
   "server": {
-    "url": "http://10.251.131.213:8080",
+    "url": "",
     "cleartext": true
   }
 }
