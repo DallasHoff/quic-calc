@@ -1,0 +1,17 @@
+{
+  "appId": "com.dallashoffman.calc",
+  "appName": "Quic Calc",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {},
+  "server": {
+    "url": "http://10.251.131.213:8080",
+    "cleartext": true
+  }
+}

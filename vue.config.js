@@ -21,6 +21,9 @@ module.exports = {
             }
         }*/
     },
+    devServer: {
+        disableHostCheck: true
+    },
     pwa: {
         name: 'Quic Calc',
         themeColor: '#71c837',
