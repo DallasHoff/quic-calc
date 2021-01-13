@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "461538572076",
+    "project_id": "quic-calc",
+    "storage_bucket": "quic-calc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461538572076:android:6e2f74213f15e837315e89",
+        "android_client_info": {
+          "package_name": "com.dallashoffman.calc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461538572076-f03n96ma36qmu9kl3fk25n1mn165m44j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtQGbnUcyOTYc1VYVaR7mqrGit8fTiDYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461538572076-f03n96ma36qmu9kl3fk25n1mn165m44j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
