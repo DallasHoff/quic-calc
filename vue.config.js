@@ -61,7 +61,7 @@ module.exports = {
         workboxOptions: {
             swDest: 'service-worker.js',
             cacheId: 'quic-calc',
-            exclude: ['robots.txt']
+            exclude: ['robots.txt', /\.map$/]
         }
     }
 };
