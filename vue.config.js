@@ -63,8 +63,7 @@ module.exports = {
             cacheId: 'quic-calc',
             exclude: ['robots.txt', /\.map$/],
             cleanupOutdatedCaches: true,
-            skipWaiting: true,
-            clientsClaim: true
+            skipWaiting: true
         }
     }
 };
