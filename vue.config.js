@@ -57,10 +57,11 @@ module.exports = {
             "background_color": "#f3f3f3",
             "display": "standalone"
         },
-        workboxPluginMode: 'InjectManifest',
+        workboxPluginMode: 'GenerateSW',
         workboxOptions: {
-            swSrc: 'public/service-worker.js',
-            exclude: ['service-worker.js', 'robots.txt']
+            swDest: 'service-worker.js',
+            cacheId: 'quic-calc',
+            exclude: ['robots.txt']
         }
     }
 };
