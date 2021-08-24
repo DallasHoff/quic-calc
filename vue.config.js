@@ -48,7 +48,16 @@ module.exports = {
             cacheId: 'quic-calc',
             exclude: ['robots.txt', /\.map$/],
             cleanupOutdatedCaches: true,
-            skipWaiting: true
+            skipWaiting: true,
+            runtimeCaching: [
+                {
+                    urlPattern: /^https:\/\/fonts\.(gstatic|googleapis)\.com/,
+                    handler: 'StaleWhileRevalidate',
+                    options: {
+                        cacheName: 'quic-calc-google-fonts'
+                    }
+                }
+            ]
         }
     }
 };
