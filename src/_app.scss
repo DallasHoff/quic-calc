@@ -77,8 +77,10 @@ input[type="text"]::placeholder, input[type="number"]::placeholder, input[type="
 	transition: background-color 600ms, transform 400ms, opacity 400ms !important;
 	overflow: hidden;
 	cursor: pointer;
-	&:hover {
-		background-color: darken(#71c837e0, 10%);
+	@media (hover: hover) {
+		&:hover {
+			background-color: darken(#71c837e0, 10%);
+		}
 	}
 	&:active {
 		background-color: darken(#71c837e0, 20%);

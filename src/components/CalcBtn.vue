@@ -29,17 +29,23 @@ export default {
     padding: 0;
     background: #dfdfdfe0;
     user-select: none;
-    &:hover {background: darken(#dfdfdfe0, 10%);}
+	@media (hover: hover) {
+        &:hover {background: darken(#dfdfdfe0, 10%);}
+    }
     &:active {background: darken(#dfdfdfe0, 20%);}
     /* Version color variations */
     &--op {
         background: #c6e9afe0;
-        &:hover {background: darken(#c6e9afe0, 10%);}
+	    @media (hover: hover) {
+            &:hover {background: darken(#c6e9afe0, 10%);}
+        }
         &:active {background: darken(#c6e9afe0, 20%);}
     }
     &--submit {
         background: #71c837e0;
-        &:hover {background: darken(#71c837e0, 10%);}
+        @media (hover: hover) {
+            &:hover {background: darken(#71c837e0, 10%);}
+        }
         &:active {background: darken(#71c837e0, 20%);}
     }
     /* Button aspect ratio */
