@@ -6,21 +6,6 @@ module.exports = {
             filename: 'index.html'
         }
     },
-    chainWebpack: (config) => {
-        // Make pages PHP files instead of HTML
-        /*const pages = {
-            index: 'index.php'
-        };
-        if (process.env.NODE_ENV === 'production') {
-            for (let page in pages) {
-                let pagePath = pages[page];
-                config.plugin('html-' + page).tap((opts) => {
-                    opts[0].filename = pagePath;
-                    return opts;
-                });
-            }
-        }*/
-    },
     devServer: {
         disableHostCheck: true
     },
