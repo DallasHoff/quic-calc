@@ -7,7 +7,7 @@ module.exports = {
         }
     },
     devServer: {
-        disableHostCheck: true
+        allowedHosts: "all"
     },
     pwa: {
         name: 'Quic Calc',
